@@ -13,7 +13,7 @@ Given a query such as:
 
 ```text
 waterproof hiking shoes
-'''
+```
 
 
 ```mermaid
