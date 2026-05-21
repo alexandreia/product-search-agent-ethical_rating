@@ -1,0 +1,139 @@
+{
+  "_version": 2,
+  "on": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "It's a start",
+    "score": 0.55,
+    "source_url": "https://directory.goodonyou.eco/brand/on",
+    "note": "Good On You rates this brand as It's a start."
+  },
+  "stadium": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "It's a start",
+    "score": 0.55,
+    "source_url": "https://directory.goodonyou.eco/brand/stadium",
+    "note": "Good On You rates this brand as It's a start."
+  },
+  "loplabbet": {
+    "source": "Good On You",
+    "status": "not_rated",
+    "rating": null,
+    "score": 0.0,
+    "source_url": "https://directory.goodonyou.eco/",
+    "note": "Loplabbet was not found in the Good On You directory."
+  },
+  "runnersstore": {
+    "source": "Good On You",
+    "status": "not_rated",
+    "rating": null,
+    "score": 0.0,
+    "source_url": "https://directory.goodonyou.eco/",
+    "note": "Runnersstore was not found in the Good On You directory."
+  },
+  "adidas": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "It's a start",
+    "score": 0.55,
+    "source_url": "https://directory.goodonyou.eco/brand/adidas",
+    "note": "Good On You rates this brand as It's a start."
+  },
+  "reebok": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "We avoid",
+    "score": 0.0,
+    "source_url": "https://directory.goodonyou.eco/brand/reebok",
+    "note": "Good On You rates this brand as We avoid."
+  },
+  "helly hansen": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "It's a start",
+    "score": 0.55,
+    "source_url": "https://directory.goodonyou.eco/brand/helly-hansen",
+    "note": "Good On You rates this brand as It's a start."
+  },
+  "vikingfootwear": {
+    "source": "Good On You",
+    "status": "not_rated",
+    "rating": null,
+    "score": 0.0,
+    "source_url": "https://directory.goodonyou.eco/",
+    "note": "Vikingfootwear was not found in the Good On You directory."
+  },
+  "next": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "It's a start",
+    "score": 0.55,
+    "source_url": "https://directory.goodonyou.eco/brand/next",
+    "note": "Good On You rates this brand as It's a start."
+  },
+  "hoka": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "It's a start",
+    "score": 0.55,
+    "source_url": "https://directory.goodonyou.eco/brand/hoka",
+    "note": "Good On You rates this brand as It's a start."
+  },
+  "intersport": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "Not good enough",
+    "score": 0.25,
+    "source_url": "https://directory.goodonyou.eco/brand/intersport",
+    "note": "Good On You rates this brand as Not good enough."
+  },
+  "naturkompaniet": {
+    "source": "Good On You",
+    "status": "not_rated",
+    "rating": null,
+    "score": 0.0,
+    "source_url": "https://directory.goodonyou.eco/",
+    "note": "Naturkompaniet was not found in the Good On You directory."
+  },
+  "keenfootwear": {
+    "source": "Good On You",
+    "status": "not_rated",
+    "rating": null,
+    "score": 0.0,
+    "source_url": "https://directory.goodonyou.eco/",
+    "note": "Keenfootwear was not found in the Good On You directory."
+  },
+  "icebug": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "Good",
+    "score": 0.8,
+    "source_url": "https://directory.goodonyou.eco/brand/icebug",
+    "note": "Good On You rates this brand as Good."
+  },
+  "skechers": {
+    "source": "Good On You",
+    "status": "rated",
+    "rating": "Not good enough",
+    "score": 0.25,
+    "source_url": "https://directory.goodonyou.eco/brand/skechers",
+    "note": "Good On You rates this brand as Not good enough."
+  },
+  "duffy": {
+    "source": "Good On You",
+    "status": "not_rated",
+    "rating": null,
+    "score": 0.0,
+    "source_url": "https://directory.goodonyou.eco/",
+    "note": "Duffy was not found in the Good On You directory."
+  },
+  "se": {
+    "source": "Good On You",
+    "status": "not_rated",
+    "rating": null,
+    "score": 0.0,
+    "source_url": "https://directory.goodonyou.eco/",
+    "note": "Se was not found in the Good On You directory."
+  }
+}

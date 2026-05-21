@@ -1,0 +1,28 @@
+{
+  "decathlon": {
+    "display_name": "Decathlon",
+    "slug": "decathlon",
+    "match_terms": ["decathlon", "decathlon.com", "decathlon.se", "decathlon.co.uk", "decathlon.ch"]
+  },
+  "on": {
+    "display_name": "On",
+    "slug": "on",
+    "match_terms": ["on.com", "on running", "on-running", "on sweden", "on shoes"]
+  },
+  "hoka": {
+    "display_name": "HOKA",
+    "slug": "hoka",
+    "match_terms": ["hoka", "hoka.com", "hoka one one"]
+  },
+  "helly_hansen": {
+    "display_name": "Helly Hansen",
+    "slug": "helly-hansen",
+    "match_terms": ["helly hansen", "hellyhansen", "hellyhansen.com"]
+  },
+  "helly_hansen_japan": {
+    "display_name": "Helly Hansen Japan",
+    "slug": "helly-hansen-japan",
+    "match_terms": ["helly hansen japan"]
+  }
+}
+

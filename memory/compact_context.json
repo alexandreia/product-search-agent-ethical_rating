@@ -1,0 +1,14 @@
+{
+  "updated_at": "2026-05-21T11:40:29.570006+00:00",
+  "summary": "The user is focused on waterproof footwear, specifically hiking shoes, with a persistent requirement for ethical sourcing. They frequently utilize ethical lookup actions and reranking to filter results. Previous preferences for women's running shoes and the Swedish market (SEK) are maintained.",
+  "retrieval_preferences": [
+    "Waterproof hiking and outdoor shoes",
+    "Ethical product sourcing",
+    "Women's running shoes",
+    "Swedish market/currency (SEK)"
+  ],
+  "avoid": [
+    "Hiking shoes exceeding $150"
+  ],
+  "last_updated_reason": "Recent search history shows a concentrated effort to find waterproof shoes using ethical mode and ethics lookup actions."
+}
