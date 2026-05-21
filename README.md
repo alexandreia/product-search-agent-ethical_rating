@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # E-commerce Product Search Agent with ethical rating (Good on You directory)
 =======
 # Product Search Agent Walkthrough
