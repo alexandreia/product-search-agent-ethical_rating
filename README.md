@@ -1,4 +1,4 @@
-# Taxonomy-Aware Product Search Agent
+# E-commerce Product Search Agent with ethical rating (Good on You directory)
 
 An AI agent that searches for real products on the web, improves its search
 context through information retrieval actions, and returns a top-10 product
