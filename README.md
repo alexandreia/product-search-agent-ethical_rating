@@ -1,34 +1,42 @@
+<<<<<<< HEAD
 # E-commerce Product Search Agent with ethical rating (Good on You directory)
+=======
+# Product Search Agent Walkthrough
+>>>>>>> 859d1ce (Updating README)
 
-An AI agent that searches for real products on the web, improves its search
-context through information retrieval actions, and returns a top-10 product
-ranking for a product query.
+This walkthrough explains what the agent is doing during a search. It is meant
+for demos, presentations, and report writing.
 
-The project is designed for an Information Retrieval lab: the agent does not
-answer from model memory. It uses live web search, product-taxonomy reasoning,
-query refinement, skills, persistent memory, candidate memory, reranking, and
-loop stopping.
+## 1. The Big Picture
 
+<<<<<<< HEAD
 ## What The Agent Does
 
 Given a query such as:
 
 ```text
 waterproof hiking shoes
+=======
+```mermaid
+flowchart LR
+    U["User query"] --> UI["Streamlit UI or CLI"]
+    UI --> A["Product Search Agent"]
+    A --> M["Memory"]
+    A --> S["Skills"]
+    A --> W["Web retrieval"]
+    A --> E["Ethics retrieval"]
+    A --> R["Reranker"]
+    R --> O["Top product results"]
+>>>>>>> 859d1ce (Updating README)
 ```
 
-the agent:
+The agent is not just a chatbot. It is a small retrieval system wrapped in an
+agent loop. It searches, checks context, improves the query, retrieves again
+when needed, and returns ranked products.
 
-1. Searches the live web for product pages.
-2. Extracts structured product candidates.
-3. Infers product category and attributes using Shopify/Google-style taxonomy
-   concepts.
-4. Refines weak searches with better category or attribute terms.
-5. Optionally checks brands against Good On You in soft ethical mode.
-6. Deduplicates and reranks candidates.
-7. Stops when it has enough relevant products or the search state repeats.
-8. Returns a top-10 ranked product list with URLs and reasons.
+## 2. What Happens When You Search
 
+<<<<<<< HEAD
 ## IR Extension
 
 This extends a normal LLM agent with IR-style actions:
@@ -62,47 +70,171 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 export OPENAI_API_KEY="your_api_key_here"
+=======
+```mermaid
+flowchart TD
+    Q["Query: waterproof shoes"] --> C{"Ambiguous?"}
+    C -- "Yes" --> D["Ask clarification"]
+    D --> E1["Edit query"]
+    D --> E2["Search anyway"]
+    C -- "No" --> L["Load skills + memory"]
+    E1 --> Q
+    E2 --> L
+    L --> W["Search web"]
+    W --> P["Parse product candidates"]
+    P --> G{"Ethical mode?"}
+    G -- "Yes" --> GOY["Retrieve Good On You rating"]
+    G -- "No" --> RK["Rerank products"]
+    GOY --> RK
+    RK --> STOP{"Stop or refine?"}
+    STOP -- "Refine" --> REF["LLM creates better search query"]
+    REF --> W
+    STOP -- "Stop" --> OUT["Return top results"]
+>>>>>>> 859d1ce (Updating README)
 ```
 
-Optional:
+The agent can pause before retrieval if the query is too vague. In the UI, this
+appears as a popup with two choices:
 
-```bash
-export OPENAI_BASE_URL="https://api.openai.com/v1"
-export SKILLS_DIR=".skills"
+- **Edit query**: go back and make the query clearer.
+- **Search anyway**: skip clarification and retrieve with the original query.
+
+## 3. Where The LLM Is Used
+
+```mermaid
+flowchart LR
+    LLM["LLM"] --> A["Ambiguity check"]
+    LLM --> B["Query refinement"]
+    LLM --> C["Product extraction from snippets"]
+    LLM --> D["Memory compaction"]
+
+    F["Facts from retrieval"] --> R["Final result"]
+    A --> R
+    B --> R
+    C --> R
+    D --> R
 ```
 
-The web search tool first tries OpenAI's Responses API `web_search` tool. If
-the provider does not support `/responses`, it falls back to DuckDuckGo HTML
-search plus OpenAI-compatible `chat.completions` extraction. This makes the
-agent usable with providers such as Berget that expose an OpenAI-compatible
-chat API.
+The LLM is used as a controller and context engineer. It helps the agent decide
+how to search better, but it should not invent facts.
 
-## Run
+Good LLM uses in this project:
 
-```bash
-python main.py "best waterproof hiking shoes under $150"
+- Decide whether a query is too ambiguous.
+- Rewrite a weak search query into a better retrieval query.
+- Extract structured products from search result snippets.
+- Compact past searches into useful memory.
+
+Things the LLM should not decide:
+
+- Good On You ratings.
+- Whether a brand exists in Good On You.
+- Product prices or availability.
+- Source URLs.
+
+Those facts must come from retrieval.
+
+## 4. Information Retrieval Actions
+
+```mermaid
+stateDiagram-v2
+    [*] --> CHECK_AMBIGUITY
+    CHECK_AMBIGUITY --> ASK_CLARIFICATION: vague query
+    CHECK_AMBIGUITY --> SEARCH_WEB: clear enough
+    ASK_CLARIFICATION --> SEARCH_WEB: user skips or edits
+    SEARCH_WEB --> LOOKUP_ETHICS: ethical mode on
+    SEARCH_WEB --> RERANK_PRODUCTS: ethical mode off
+    LOOKUP_ETHICS --> RERANK_PRODUCTS
+    RERANK_PRODUCTS --> REFINE_QUERY: weak results
+    REFINE_QUERY --> SEARCH_WEB
+    RERANK_PRODUCTS --> STOP: enough results or repeated state
+    STOP --> [*]
 ```
 
-Run the Streamlit UI:
+The agent uses actions as retrieval steps:
 
-```bash
-streamlit run app.py
+| Action | Purpose |
+| --- | --- |
+| `ASK_CLARIFICATION` | Stop early if the query is too vague. |
+| `SEARCH_WEB` | Retrieve real product candidates from the live web. |
+| `LOOKUP_ETHICS` | Retrieve Good On You brand ratings when ethical mode is on. |
+| `REFINE_QUERY` | Improve the retrieval query based on current context. |
+| `RERANK_PRODUCTS` | Sort and deduplicate candidates. |
+| `STOP` | Stop when results are good enough, budget is exhausted, or the state repeats. |
+
+## 5. Memory System
+
+```mermaid
+flowchart TD
+    H["search_history.jsonl"] --> MC["LLM memory compaction"]
+    P["user_preferences.json"] --> CTX["Context builder"]
+    MC --> CC["compact_context.json"]
+    CC --> CTX
+    EC["brand_ethics_cache.json"] --> ETH["Ethics lookup"]
+    CTX --> PROMPT["Refinement + ambiguity prompts"]
 ```
 
-With Berget, use the full provider-qualified model id shown in their model
-library, for example:
+The memory system has three jobs:
 
-```bash
-python main.py "best waterproof hiking shoes under $150" --model "google/gemma-4-31B-it"
+- **Search history** keeps a log of past runs.
+- **Compacted memory** summarizes useful patterns from past searches.
+- **Ethics cache** avoids retrieving the same Good On You brand page repeatedly.
+
+Example compact memory:
+
+```json
+{
+  "summary": "The user often searches for outdoor products in Sweden with SEK prices.",
+  "retrieval_preferences": [
+    "Prefer Swedish or EU product pages when country is Sweden.",
+    "Prefer product pages over generic category pages."
+  ],
+  "avoid": [
+    "Do not treat blog roundups as product pages unless they name concrete products."
+  ]
+}
 ```
 
-Limit provider API calls for a demo run:
+## 6. Ethical Mode
 
-```bash
-python main.py "best waterproof hiking shoes under $150" --model "google/gemma-4-31B-it" --max-api-calls 2
+```mermaid
+flowchart LR
+    P["Product candidate"] --> B["Resolve brand"]
+    B --> I["Local brand index"]
+    I --> URL["Good On You brand URL"]
+    URL --> PAGE["Retrieve brand page"]
+    PAGE --> PARSE["Parse rating"]
+    PARSE --> CACHE["Cache rating"]
+    CACHE --> SCORE["Soft reranking boost"]
 ```
 
-Use geolocalized search:
+Ethical mode does not remove products. It keeps all products and adds brand
+rating context when available.
+
+Important rule:
+
+> The agent does not infer Good On You ratings with the LLM.
+
+The rating must come from the retrieved Good On You brand page. If the brand is
+not found, the agent says it is not rated instead of guessing.
+
+## 7. API Budget
+
+```mermaid
+flowchart TD
+    B["API budget"] --> A["Ambiguity check"]
+    B --> M["Memory compaction"]
+    B --> X["Product extraction"]
+    B --> R["Query refinement"]
+    A -->|"budget exhausted"| F["Skip optional LLM step"]
+    M -->|"budget exhausted"| F
+    R -->|"budget exhausted"| S["Stop with api_budget_exhausted"]
+```
+
+The API budget makes demos safer. If the budget is low, the agent still tries
+to continue with deterministic fallbacks where possible.
+
+Example:
 
 ```bash
 python main.py "waterproof hiking shoes under 1500 SEK" \
@@ -113,122 +245,98 @@ python main.py "waterproof hiking shoes under 1500 SEK" \
   --max-api-calls 3
 ```
 
-If the budget is exhausted, the agent keeps running with deterministic web
-search fallbacks where possible.
+## 8. UI Walkthrough
 
-Soft ethical mode keeps all products, shows Good On You ratings when available,
-marks missing brands as not rated, and gives better-rated brands a small
-reranking boost:
+```mermaid
+flowchart TD
+    UI["Product Search Agent page"] --> Q["Main query input"]
+    UI --> SET["Sidebar settings"]
+    SET --> ETH["Ethical mode"]
+    SET --> LOC["Country / market / currency"]
+    SET --> BUD["API call budget"]
+    SET --> MEM["Memory panel"]
+    Q --> RUN["Search"]
+    RUN --> POP{"Clarification popup?"}
+    POP -- "Edit query" --> Q
+    POP -- "Search anyway" --> RES["Top products"]
+    POP -- "No popup" --> RES
+    RES --> TRACE["Agent Trace"]
+    RES --> HB["Heartbeat"]
+```
+
+The Streamlit page is designed for demonstrating the agent:
+
+- The main input is the only query input.
+- Ambiguous searches open a popup instead of adding another text field.
+- The sidebar controls retrieval behavior.
+- The agent trace shows what actions were taken.
+- The heartbeat shows the latest run status.
+
+## 9. Example Demo Script
+
+Use this for a short presentation.
+
+1. Start the UI:
 
 ```bash
-python main.py "waterproof hiking jacket under $200" --ethical-mode
+streamlit run app.py
 ```
 
-Other examples:
-
-```bash
-python main.py "quiet mechanical keyboard for mac under $120"
-python main.py "non stick frying pan induction compatible"
-python main.py "lightweight carry on suitcase with spinner wheels"
-```
-
-The command prints JSON:
-
-```json
-{
-  "query": "best waterproof hiking shoes under $150",
-  "search_queries": ["..."],
-  "actions": ["SEARCH_WEB", "STOP", "RERANK_PRODUCTS"],
-  "stop_reason": "enough_relevant_products",
-  "products": [
-    {
-      "rank": 1,
-      "title": "...",
-      "price": "...",
-      "source": "...",
-      "url": "...",
-      "relevance_score": 0.91,
-      "reason": "..."
-    }
-  ]
-}
-```
-
-## Agent Walkthrough
-
-For a visual explanation of the agent loop, memory, LLM usage, ethical mode,
-and UI flow, see:
-
-[AGENT_WALKTHROUGH.md](AGENT_WALKTHROUGH.md)
-
-## Project Structure
+2. Try an ambiguous query:
 
 ```text
-agent/
-  shopping_agent.py   agent loop: search, refine, rerank, stop
-  state.py            working memory and state equivalence
-  prompts.py          structured prompts for retrieval/refinement
-  reranker.py         deduplication and top-k ranking
-  skill_loader.py     .skills metadata discovery and instruction loading
-  memory.py           file-backed preferences, history, and ethics cache
-  heartbeat.py        heartbeat status writer
-  api_budget.py       per-run provider API call budget
-  context.py          compact context builder
-
-tools/
-  web_product_search.py  live product retrieval through web search
-  ethics_lookup.py       Good On You brand rating lookup
-  brand_index.py         local brand-to-Good-On-You-slug index loader
-  taxonomy.py            taxonomy source references and hints
-
-schema/
-  product.py          normalized product result schema
-  ethics.py           Good On You rating schema and score mapping
-
-.skills/
-  ethical_shopping/
-  taxonomy_search/
-  product_reranking/
-
-memory/
-  user_preferences.json
-  search_history.jsonl
-  brand_ethics_cache.json
-
-data/
-  good_on_you_brands.json
-
-heartbeat/
-  heartbeat.json
-
-eval/
-  metrics.py          lightweight trace summaries
-
-tests/
-  test_core.py        offline tests for parser, policy, reranker, schema
-
-examples/
-  example_queries.md
-
-report/
-  report.md
-
-app.py                Streamlit demo UI
+waterproof shoes
 ```
 
-## Notes
+Show that the agent asks for clarification before retrieval.
 
-This is a learning-oriented agent, not a production product search engine. It depends
-on live web results and model extraction quality, so product prices and
-availability should be checked on the linked product pages before purchase.
-Ethical mode reports Good On You ratings when the brand is found in that
-directory; it does not infer ratings for brands that are missing.
+3. Click **Search anyway**.
 
-## Tests
+Show that the agent can continue even when the user skips the question.
 
-The offline unit tests do not call the OpenAI API and use Python's standard
-library test runner:
+4. Try a clearer localized query:
 
-```bash
-python -m unittest discover -s tests
+```text
+waterproof hiking shoes under 1500 SEK
 ```
+
+Show:
+
+- Locale: Sweden / `se-sv` / SEK.
+- Search queries used.
+- Top ranked product candidates.
+- Agent trace.
+
+5. Turn on ethical mode and search:
+
+```text
+HOKA waterproof hiking shoes
+```
+
+Show:
+
+- Brand resolution.
+- Good On You source URL.
+- Rating shown without filtering products out.
+
+## 10. One-Slide Summary
+
+```mermaid
+flowchart LR
+    Q["User need"] --> IR["IR actions"]
+    IR --> C["Better context"]
+    C --> L["LLM reasoning"]
+    L --> IR
+    IR --> T["Top products"]
+
+    subgraph RS["Retrieval system"]
+        W["Web search"]
+        E["Ethics lookup"]
+        M["Memory"]
+        R["Reranking"]
+    end
+```
+
+The project shows how an AI agent can improve Information Retrieval by
+combining live search, memory, query refinement, skills, ethical retrieval, and
+state-based stopping.
