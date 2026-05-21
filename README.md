@@ -2,7 +2,6 @@
 
 
 # Product Search Agent Walkthrough
->>>>>>> 859d1ce (Updating README)
 
 This walkthrough explains what the agent is doing during a search. It is meant
 for demos, presentations, and report writing.
@@ -27,7 +26,6 @@ flowchart LR
     A --> E["Ethics retrieval"]
     A --> R["Reranker"]
     R --> O["Top product results"]
->>>>>>> 859d1ce (Updating README)
 ```
 
 The agent is not just a chatbot. It is a small retrieval system wrapped in an
@@ -70,7 +68,8 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 export OPENAI_API_KEY="your_api_key_here"
-=======
+'''
+
 ```mermaid
 flowchart TD
     Q["Query: waterproof shoes"] --> C{"Ambiguous?"}
@@ -90,7 +89,6 @@ flowchart TD
     STOP -- "Refine" --> REF["LLM creates better search query"]
     REF --> W
     STOP -- "Stop" --> OUT["Return top results"]
->>>>>>> 859d1ce (Updating README)
 ```
 
 The agent can pause before retrieval if the query is too vague. In the UI, this
