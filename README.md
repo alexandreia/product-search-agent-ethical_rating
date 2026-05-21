@@ -3,8 +3,7 @@
 
 # Product Search Agent Walkthrough
 
-This walkthrough explains what the agent is doing during a search. It is meant
-for demos, presentations, and report writing.
+This walkthrough explains what the agent is doing during a search. 
 
 ## 1. The Big Picture
 
