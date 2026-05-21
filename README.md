@@ -1,5 +1,6 @@
 # E-commerce Product Search Agent with ethical rating (Good on You directory)
-=======
+
+
 # Product Search Agent Walkthrough
 >>>>>>> 859d1ce (Updating README)
 
@@ -8,14 +9,14 @@ for demos, presentations, and report writing.
 
 ## 1. The Big Picture
 
-<<<<<<< HEAD
 ## What The Agent Does
 
 Given a query such as:
 
 ```text
 waterproof hiking shoes
-=======
+
+
 ```mermaid
 flowchart LR
     U["User query"] --> UI["Streamlit UI or CLI"]
@@ -35,7 +36,7 @@ when needed, and returns ranked products.
 
 ## 2. What Happens When You Search
 
-<<<<<<< HEAD
+
 ## IR Extension
 
 This extends a normal LLM agent with IR-style actions:
