@@ -1,4 +1,4 @@
-## ABOUT THIS AGENT
+## README
 
 HuggingFace Space: https://huggingface.co/spaces/andreiaalexa/product-search-agent-ethical-rating
 
