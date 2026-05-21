@@ -1,5 +1,6 @@
 ## ABOUT THIS AGENT
 
+HuggingFace Space: https://huggingface.co/spaces/andreiaalexa/product-search-agent-ethical-rating
 Video walkthrough: https://drive.google.com/file/d/1PEkEINxOjBgmkoqh0_Fkmzdw8WWw7i82/view?usp=sharing 
 
 ## 1. The Big Picture
