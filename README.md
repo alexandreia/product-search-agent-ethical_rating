@@ -1,4 +1,4 @@
-## ABOUT Product Search Gent (+ ethical rating from Good on You)
+## Product Search Agent (+ ethical rating from Good on You)
 
 HuggingFace Space: https://huggingface.co/spaces/andreiaalexa/product-search-agent-ethical-rating
 
