@@ -14,7 +14,7 @@ loop stopping.
 Given a query such as:
 
 ```text
-best waterproof hiking shoes under $150
+waterproof hiking shoes
 ```
 
 the agent:
@@ -48,7 +48,7 @@ The agent also has:
 - `heartbeat/heartbeat.json`: current/last run status.
 - `agent/context.py`: compact context builder for refinement prompts.
 
-The taxonomy idea is inspired by:
+The taxonomy product structure is inspired by:
 
 - Shopify Product Taxonomy: <https://shopify.github.io/product-taxonomy/releases/2024-07/>
 - Google Product Taxonomy: <https://www.google.com/basepages/producttype/taxonomy.en-US.txt>
