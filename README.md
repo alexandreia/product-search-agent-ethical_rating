@@ -15,6 +15,7 @@ Given a query such as:
 waterproof hiking shoes
 '''
 
+
 ```mermaid
 flowchart LR
     U["User query"] --> UI["Streamlit UI or CLI"]
